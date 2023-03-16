@@ -1,0 +1,22 @@
+{
+  "name": "giphy-travel-guide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdeluca13/giphy-travel-guide.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdeluca13/giphy-travel-guide/issues"
+  },
+  "homepage": "https://github.com/mdeluca13/giphy-travel-guide#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.2.7"
+  }
+}
