@@ -51,7 +51,7 @@ var surpriseList = [
     ['Manchester, UK', 53.4807593, -2.2426305], 
     ['Scotland, UK', 56.49067119999999, -4.2026458],
     ['Montevideo, Uruguay', -34.8181587, -56.2138256]
-]
+];
 
 // Getting local storage through key length and getting key name and latlng
 for (var i = 0; i < localStorage.length; i++) {
@@ -85,15 +85,32 @@ function setMarkers(map) {
 
     for (var i = 0; i < storedInfo.length; i++) {
 
-      new google.maps.Marker({
+      let marker = new google.maps.Marker({
         position: { lat: storedInfo[i][1], lng: storedInfo[i][2] },
         map,
         icon: image,
         shape: shape,
+        latitude: storedInfo[i][1],
+        longitude: storedInfo[i][2],
         title: storedInfo[i][0],
         zIndex: storedInfo[i][3],
         
       });
+
+      // Click event listener to the flags to zoom in when clicked on and add red marker
+// need to work on after click still have search bar showing
+      marker.addListener('click', function(){
+          
+        var clicked = { lat: marker.get("latitude"), lng: marker.get("longitude") };
+        map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 6,
+          center: clicked,
+        });
+        marker = new google.maps.Marker({
+          position: clicked,
+          map: map,
+        });
+      })
     }
 }
 
@@ -107,7 +124,7 @@ function initMap() {
 
     if (localStorage.length !== 0){
         setMarkers(map);
-    }
+    };
 
     card = document.getElementById("pac-card");
     input = document.getElementById("pac-input");
@@ -127,9 +144,7 @@ function initMap() {
         marker.setVisible(false);
         
         var place = autocomplete.getPlace('London, Ontario');
-        console.log(place.formatted_address)
-      
-        console.log(place)
+
         placeID = place.place_id;
         placeName = place.formatted_address;
 
