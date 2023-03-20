@@ -8,6 +8,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 var surpriseBtn = $('#surprise-btn');
+var clearStorage = $('#clear-storage-btn')
 var localStorageData;
 var lastSearchName;
 var lat;
@@ -17,8 +18,12 @@ var placeID;
 var latLng;
 var storedLat;
 var storedLng;
+var map;
 var card;
 var input;
+var place;
+var autocomplete;
+var marker;
 var storedInfo = [];
 var surpriseList = [
     ['Lima, Peru', -12.0463731, -77.042754],
@@ -106,17 +111,54 @@ function setMarkers(map) {
           zoom: 6,
           center: clicked,
         });
+        // card = document.getElementById("pac-card");
+        // input = document.getElementById("pac-input");
+        // map.controls[google.maps.ControlPosition.TOP_LEFT].push(card);
+  
+        // autocomplete = new google.maps.places.Autocomplete(input);
+      
         marker = new google.maps.Marker({
           position: clicked,
           map: map,
         });
+        
+
+  //       autocomplete.addListener("place_changed", () => {
+  //         marker.setVisible(false);
+          
+  //         place = autocomplete.getPlace();
+  
+  //         placeID = place.place_id;
+  //         placeName = place.formatted_address;
+    
+  //         if (!place.geometry || !place.geometry.location) {
+  //         // User entered the name of a Place that was not suggested and
+  //         // pressed the Enter key, or the Place Details request failed.
+          
+  // // CHANGE THIS TO MODAL AND ADD GIF
+  //             window.alert("No details available for input: '" + place.name + "'");
+  //             return;
+  //         }
+    
+  //       // If the place has a geometry, then present it on a map.
+  //         if (place.geometry.viewport) {
+  //             map.fitBounds(place.geometry.viewport);
+  //         } else {
+  //             map.setCenter(place.geometry.location);
+  //             map.setZoom(17);
+  //         }
+    
+  //         marker.setPosition(place.geometry.location);
+  //         marker.setVisible(true);
+  
+  //     });
       })
     }
 }
 
 // map function to display map
 function initMap() {
-    var map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: 0, lng: 0 },
       zoom: 1,
       mapTypeControl: false,
@@ -128,14 +170,12 @@ function initMap() {
 
     card = document.getElementById("pac-card");
     input = document.getElementById("pac-input");
-    geocoder = new google.maps.Geocoder();
-
   
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(card);
   
-    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete = new google.maps.places.Autocomplete(input);
   
-    var marker = new google.maps.Marker({
+    marker = new google.maps.Marker({
       map,
       anchorPoint: new google.maps.Point(0, 0),
     });
@@ -143,7 +183,7 @@ function initMap() {
     autocomplete.addListener("place_changed", () => {
         marker.setVisible(false);
         
-        var place = autocomplete.getPlace('London, Ontario');
+        place = autocomplete.getPlace();
 
         placeID = place.place_id;
         placeName = place.formatted_address;
@@ -191,3 +231,27 @@ window.initMap = initMap;
 function saveSearch() {
     localStorage.setItem(placeName, JSON.stringify(latLng));
 }
+
+// Clear storage click listener
+clearStorage.on('click', function () {
+  localStorage.clear();
+  location.reload();
+});
+
+// randomizer for click event surprise me
+surpriseBtn.on('click', function () {
+  var random = Math.floor(Math.random() * 30); //<< gets random number from 0 - 29 for index
+  console.log(surpriseList[random][1])
+
+  var rdmPlace = { lat: surpriseList[random][1], lng: surpriseList[random][2] };
+
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 6,
+    center: rdmPlace,
+  });
+      
+  marker = new google.maps.Marker({
+    position: rdmPlace,
+    map: map,
+  });
+});
