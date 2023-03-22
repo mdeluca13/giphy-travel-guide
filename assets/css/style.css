@@ -121,3 +121,9 @@ body {
 #modal_text{
     margin: 10px;
 }
+
+h1{
+    font-family: 'Alkatra', cursive;
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Shantell Sans', cursive;
+}
