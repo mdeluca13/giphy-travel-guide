@@ -31,7 +31,7 @@ var surpriseList = [
     ['Fukuoka, Japan', 33.5901838, 130.4016888],
     ['Kuala Lumpur, Federal Territory of Kuala Lumpur, Malaysia', 3.1569486, 101.712303],
     ['South Africa', -30.559482, 22.937506],
-    ['Nova Scotia, Canada', 44.6922613, -62.6571885], 
+    ['Nova Scotia, Canada', 44.6922613, -62.6571885],
     ['Bhutan', 27.514162, 90.433601],
     ['Magdalena, Columbia', 11.3064409, -74.0657561],
     ['Istanbul, Turkey', 41.0082376, 28.9783589],
@@ -53,7 +53,7 @@ var surpriseList = [
     ['El Salvador', 13.794185, -88.89653],
     ['Dresden, Germany', 51.0504088, 13.7372621],
     ['Marseille, France', 43.296482, 5.36978],
-    ['Manchester, UK', 53.4807593, -2.2426305], 
+    ['Manchester, UK', 53.4807593, -2.2426305],
     ['Scotland, UK', 56.49067119999999, -4.2026458],
     ['Montevideo, Uruguay', -34.8181587, -56.2138256]
 ];
@@ -70,7 +70,7 @@ for (var i = 0; i < localStorage.length; i++) {
     storedLng = Number(value[1]);
     // console.log('city: ' + key + '; lat: ' + storedLat + '; lng: ' + storedLng)
     storedInfo[i] = [key, storedLat, storedLng, i];
-    
+
 }
 
 // Sets the previous searched places to be listed in the map as flags
@@ -99,13 +99,13 @@ function setMarkers(map) {
         longitude: storedInfo[i][2],
         title: storedInfo[i][0],
         zIndex: storedInfo[i][3],
-        
+
       });
 
       // Click event listener to the flags to zoom in when clicked on and add red marker
 // need to work on after click still have search bar showing
       marker.addListener('click', function(){
-          
+
         var clicked = { lat: marker.get("latitude"), lng: marker.get("longitude") };
         map = new google.maps.Map(document.getElementById("map"), {
           zoom: 6,
@@ -114,32 +114,32 @@ function setMarkers(map) {
         // card = document.getElementById("pac-card");
         // input = document.getElementById("pac-input");
         // map.controls[google.maps.ControlPosition.TOP_LEFT].push(card);
-  
+
         // autocomplete = new google.maps.places.Autocomplete(input);
-      
+
         marker = new google.maps.Marker({
           position: clicked,
           map: map,
         });
-        
+
 
   //       autocomplete.addListener("place_changed", () => {
   //         marker.setVisible(false);
-          
+
   //         place = autocomplete.getPlace();
-  
+
   //         placeID = place.place_id;
   //         placeName = place.formatted_address;
-    
+
   //         if (!place.geometry || !place.geometry.location) {
   //         // User entered the name of a Place that was not suggested and
   //         // pressed the Enter key, or the Place Details request failed.
-          
+
   // // CHANGE THIS TO MODAL AND ADD GIF
   //             window.alert("No details available for input: '" + place.name + "'");
   //             return;
   //         }
-    
+
   //       // If the place has a geometry, then present it on a map.
   //         if (place.geometry.viewport) {
   //             map.fitBounds(place.geometry.viewport);
@@ -147,10 +147,10 @@ function setMarkers(map) {
   //             map.setCenter(place.geometry.location);
   //             map.setZoom(17);
   //         }
-    
+
   //         marker.setPosition(place.geometry.location);
   //         marker.setVisible(true);
-  
+
   //     });
       })
     }
@@ -170,19 +170,19 @@ function initMap() {
 
     card = document.getElementById("pac-card");
     input = document.getElementById("pac-input");
-  
+
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(card);
-  
+
     autocomplete = new google.maps.places.Autocomplete(input);
-  
+
     marker = new google.maps.Marker({
       map,
       anchorPoint: new google.maps.Point(0, 0),
     });
-  
+
     autocomplete.addListener("place_changed", () => {
         marker.setVisible(false);
-        
+
         place = autocomplete.getPlace();
 
         placeID = place.place_id;
@@ -199,16 +199,34 @@ function initMap() {
             latLng = lat + ',' + lng;
             saveSearch();
         });
-  
+
         if (!place.geometry || !place.geometry.location) {
         // User entered the name of a Place that was not suggested and
         // pressed the Enter key, or the Place Details request failed.
-        
-// CHANGE THIS TO MODAL AND ADD GIF
-            window.alert("No details available for input: '" + place.name + "'");
-            return;
+
+        // Code for Modal
+
+        var modal = document.getElementById("myModal");
+
+        var span = document.getElementsByClassName("close")[0];
+
+        modal.style.display = "block";
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
         }
-  
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+
+        return;
+        }
+
       // If the place has a geometry, then present it on a map.
         if (place.geometry.viewport) {
             map.fitBounds(place.geometry.viewport);
@@ -216,12 +234,12 @@ function initMap() {
             map.setCenter(place.geometry.location);
             map.setZoom(17);
         }
-  
+
         marker.setPosition(place.geometry.location);
         marker.setVisible(true);
 
     });
-    
+
 }
 
 // Calling Map function to display
@@ -249,7 +267,7 @@ surpriseBtn.on('click', function () {
     zoom: 6,
     center: rdmPlace,
   });
-      
+
   marker = new google.maps.Marker({
     position: rdmPlace,
     map: map,

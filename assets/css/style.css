@@ -16,25 +16,25 @@ body {
     margin: 0;
     padding: 0;
 }
-  
+
 #description {
     font-family: Roboto;
     font-size: 15px;
     font-weight: 300;
 }
-  
+
 #infowindow-content .title {
     font-weight: bold;
 }
-  
+
 #infowindow-content {
     display: none;
 }
-  
+
 #map #infowindow-content {
     display: inline;
 }
-  
+
 .pac-card {
     background-color: #fff;
     border: 0;
@@ -47,12 +47,11 @@ body {
     font-family: Roboto;
     padding: 0;
 }
-  
+
 #pac-container {
-    padding-bottom: 12px;
-    margin-right: 12px;
+    padding: 10px;
 }
-  
+
 #pac-input {
     background-color: #fff;
     font-family: Roboto;
@@ -63,11 +62,11 @@ body {
     text-overflow: ellipsis;
     width: 400px;
 }
-  
+
 #pac-input:focus {
     border-color: #4d90fe;
 }
-  
+
 #title {
     color: #fff;
     background-color: #4d90fe;
@@ -75,3 +74,43 @@ body {
     font-weight: 500;
     padding: 6px 12px;
 }
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
