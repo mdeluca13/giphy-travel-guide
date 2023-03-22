@@ -8,6 +8,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 var surpriseBtn = $('#surprise-btn');
+var searchAgainBtn = $('#search-again-btn')
 var clearStorage = $('#clear-storage-btn')
 var localStorageData;
 var lastSearchName;
@@ -272,4 +273,9 @@ surpriseBtn.on('click', function () {
     position: rdmPlace,
     map: map,
   });
+});
+
+// have search bar populate again
+searchAgainBtn.on('click', function () {
+  location.reload();
 });
