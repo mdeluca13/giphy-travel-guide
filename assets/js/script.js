@@ -213,6 +213,8 @@ function initMap() {
 
         modal.style.display = "block";
 
+        document.querySelector("#modal_text").innerHTML = "No details available for input: '" + place.name + "'";
+
         // When the user clicks on <span> (x), close the modal
         span.onclick = function() {
           modal.style.display = "none";
