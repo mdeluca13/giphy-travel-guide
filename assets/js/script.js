@@ -10,6 +10,7 @@
 var surpriseBtn = $('#surprise-btn');
 var searchAgainBtn = $('#search-again-btn')
 var clearStorage = $('#clear-storage-btn')
+var container = $('#img-container')
 var localStorageData;
 var lastSearchName;
 var lat;
@@ -23,6 +24,7 @@ var map;
 var card;
 var input;
 var place;
+var gifSearch;
 var autocomplete;
 var marker;
 var storedInfo = [];
@@ -186,6 +188,10 @@ function initMap() {
 
         place = autocomplete.getPlace();
 
+        gifSearch = place.address_components[0].long_name
+
+        gifLoad(gifSearch)
+        
         placeID = place.place_id;
         placeName = place.formatted_address;
 
@@ -281,3 +287,20 @@ surpriseBtn.on('click', function () {
 searchAgainBtn.on('click', function () {
   location.reload();
 });
+
+function gifLoad(input) {
+  
+  fetch ('https://api.giphy.com/v1/gifs/search?api_key=AXlVnQ0kNMbPNVXrSOZm0MPgYw1z1egm&q=' + input + '&limit=20')
+  .then (function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    var imgPath = (data.data[0].images.original.url)
+    var img = $('<img>')
+    img.attr('src', imgPath)
+    img.css('width', '100px')
+    img.css('height', '100px')
+
+  container.append(img)
+  });
+}
