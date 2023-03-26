@@ -132,3 +132,20 @@ h1{
     font-family: 'Fasthand', cursive;
     font-size: 20px;
 }
+
+/* .img-container{
+        display: flex;
+    flex-direction: row;
+} */
+.sharebtn {
+    /* @apply relative flex z-10 bg-white border rounded-md p-2 opacity-50 hover:opacity-100 focus:outline-none focus:border-blue-400; */
+  }
+
+  .sharebtn:hover + .sharebtn-dropdown,
+  .sharebtn:focus + .sharebtn-dropdown {
+    display: block;
+  }
+
+  .sharebtn-dropdown {
+    /* @apply absolute right-0 mt-0 w-48 bg-white rounded-sm overflow-hidden shadow-lg z-20 hidden border border-gray-100; */
+  }
