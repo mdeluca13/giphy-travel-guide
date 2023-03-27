@@ -7,6 +7,7 @@ var surpriseBtn = $('#surprise-btn');
 var searchAgainBtn = $('#search-again-btn')
 var clearStorage = $('#clear-storage-btn')
 var container = $('#img-container')
+var placeText = $('#place-display')
 var localStorageData;
 var lastSearchName;
 var lat;
@@ -110,7 +111,8 @@ function setMarkers(map) {
         center: clicked,
       });
 
-      console.log(name)
+      placeText.text(name);
+
       gifLoad('travel ' + name);
       marker = new google.maps.Marker({
         position: clicked,
@@ -207,8 +209,10 @@ function initMap() {
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
     gifSearch = place.address_components[0].long_name;
+
+    placeText.text(place.formatted_address)
     gifLoad(gifSearch + ' Tourism');
-        
+
     // getting lat lng
     fetch ('https://maps.googleapis.com/maps/api/geocode/json?place_id=' + placeID + '&key=AIzaSyBtgd8tFi13h7xX6R0bVuKhWddciq5pd94')
     .then (function (response) {
@@ -250,6 +254,8 @@ surpriseBtn.on('click', function () {
   });
 
   gifLoad(surpriseList[random][3]);
+
+  placeText.text(surpriseList[random][0]);
 
   marker = new google.maps.Marker({
     position: rdmPlace,
